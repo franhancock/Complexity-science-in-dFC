@@ -13,7 +13,9 @@ How to run the software on your data
 In CP_FullPipeLine.m 
 
 point HCP_DATA to your post-processed subject nifti files
+
 point HCP_MAT to where you wish to store your subjects' parcellated .mat files
+
 
 CP_FullPipeLine.m will
 
