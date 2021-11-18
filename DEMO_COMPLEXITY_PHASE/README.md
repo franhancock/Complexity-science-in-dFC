@@ -21,40 +21,52 @@ point HCP_MAT to where you wish to store your subjects' parcellated .mat files
 CP_FullPipeLine.m will
 
 %% 1 parcellate the data
-% Parcellate
+% Parcellate 
 
 %% 2 compute the leading eigenvectors
-% LEiDA_data
+ LEiDA_data
 
 %% 3. Cluster the eigenvectors
-% LEiDA_cluster
+ LEiDA_cluster
 
 %% 4. Compute duration and occurrence
-% LEiDA_for_stats
+ LEiDA_for_stats
 
-%% 5. Get the LEiDA centroids in 10mm voxel space
-% get_centroids_LEiDA
+%% 5. Get the LEiDA centroids in 10mm voxel space (we use this code to represent the AAL116 centroids in 10mm voxel space) Centroids are provided
+  
+ % get_centroids_LEiDA
 
-%% 6. Make fig 1
-% make_fig1
+%% 6. Make fig 1 (This requires a LOT of computational resources for the graphical representation. We supply fig1 for this dataset for reference)
+ make_fig1
 
-%% 7. Compute phase synchrony metrics
-% Phase_sync_metrics
+%% 7. Compute ICC for 5 modes
+LEiDA_reliability
 
-%% 8. Compute Integrated Information
-% Compute_PHI
+ %% 8. Compute phase synchrony metrics
+ Phase_sync_metrics
 
-%% 9. Compare the reproducibility of metrics across scans
-% Compare_Global_metrics
+%% 9. Compute Integrated Information (Request PHhiID code from Pedro Mediano)
+ Compute_PHI
 
-%% 10. Plot metric reliabilites
-% Bar_plot_metrics
+%% 10. Compare the reproducibility of metrics across scans
+ Compare_Global_metrics
 
-%% 11. Run regression
+%% 11. Plot metric reliabilites
+ Bar_plot_metrics
 
-% Plot_Regression
+ %% 12. Compare the mode-specific metrics
+Compare_Mode_metrics
 
-%% 12. Sample time-varying metrics single subject
+%% 13. Plot mode-specific metric reliabilities
+Bar_plot_Mode_metrics
 
-% LEiDA_TV_METRICS
+%% 14. Perform Stepwise regression
+PLOT_Step_Regression
+
+%% 15. Run regression
+Plot_Regression
+
+%% 16. Sample time-varying metrics single subject
+ LEiDA_TV_METRICS
+
   
