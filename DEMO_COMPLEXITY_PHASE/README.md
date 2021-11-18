@@ -1,16 +1,18 @@
 # Complexity-science-in-dFC
-Code to compute, assess, and plot dFC Metrics described in 'Metastability, fractal scaling, and synergistic information processing: what phase relationships reveal about intrinsic fMRI resting-state brain activity '
+Code to compute, assess, and plot dFC Metrics described in 'Metastability, fractal scaling, and synergistic information processing: what phase relationships reveal about intrinsic fMRI resting-state brain activity '.
+Demo code including processed data from 20 HCPU100 subjects in 4 runs.
 
 *******SYSTEM REQUIREMENTS:
 MATLAB 2021b
 spm12 (please download spm12 from here: https://www.fil.ion.ucl.ac.uk/spm/software/download/spmreg.php and set it under the known Matlab paths with Matlab --> Set path --> Add folder with subfolders).
 
 *******INSTALLATION GUIDE:
-It will be enough to download the code folder and set the Matlab path to the folder (Matlab --> Set path --> Add folder with subfolders)
+It will be enough to download the DEMO_COMPLEXITY_PHASE folder and set the Matlab path to the folder (Matlab --> Set path --> Add folder with subfolders)
 
 *******INSTRUCTIONS FOR USE: 
 How to run the software on your data
 
+*******DEMO
 In CP_FullPipeLine.m 
 
 point HCP_DATA to your post-processed subject nifti files
@@ -20,7 +22,7 @@ point HCP_MAT to where you wish to store your subjects' parcellated .mat files
 
 CP_FullPipeLine.m will
 
-%% 1 parcellate the data
+%% 1 parcellate the data (We have performed this for 20 HCPU100 subjects in 4 runs)
 % Parcellate 
 
 %% 2 compute the leading eigenvectors
