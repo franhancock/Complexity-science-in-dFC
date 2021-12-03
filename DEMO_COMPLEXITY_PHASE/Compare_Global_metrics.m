@@ -4,8 +4,7 @@ function Compare_Global_metrics
 % across 4 runs and 5 modes
 %
 % META, SYNC,CHI,PHASE are mean values across n states
-% MEAN_SPEED is across the complete system (state independent) - not
-% computed here for AAL116 
+% MEAN_SPEED is across the complete system (state independent) 
 % CENTROPY is the sum of the coalition entropies across n states
 %
 % GLOBAL SYNC needs to be the values' for the global mode
@@ -21,7 +20,7 @@ Smax=5;
 Cmax=Smax-1;
 Rmax=4; % number of runs
 n_subs=20;
-global PAR
+PAR='AAL116';
 
 for run=1:Rmax
     P(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_for_stats'], 'P'));
@@ -32,6 +31,7 @@ for run=1:Rmax
     GLOBAL_CHI(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_KOP_ALL_RUN' num2str(run)],'GLOBAL_CHI'));
     CENTROPY(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_KOP_ALL_RUN' num2str(run)],'GLOBAL_CE'));
     GLOBAL_PCC(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_KOP_ALL_RUN' num2str(run)],'GLOBAL_PCC'));
+    MEAN_SPEED(run,:,:,:)=struct2array(load([PAR '_IPC_RW_ALL_R' num2str(run)], 'GLOBAL_MEAN_SPEED'));
 end
 
 
@@ -44,6 +44,7 @@ MEAN_META(1:4,:)=mean(META(1:4,:,:,Cmax),3);    % Calculate the mean meta for ea
 C_META(1:4)=mean(MEAN_META(1:4,:),2);
 MEAN_SYNC(1:4,:)=mean(SYNC(1:4,:,1,Cmax),3);    % Calculate the mean SYNC for GLOBAL mode each subject 23.10.21
 C_SYNC(1:4)=mean(MEAN_SYNC(1:4),2);
+C_SPEED(1:4,:)=mean(MEAN_SPEED(1:4,:),2);
 
 C_PCC(1:4,:)=mean(GLOBAL_PCC,2);
 C_CENTROPY(1:4,:)=mean(CENTROPY,2);
@@ -59,6 +60,7 @@ for r=1:Rmax
     C_SYNC_SEM(r,:)=std(MEAN_SYNC(r,:))/sqrt(n_subs);
     C_CHI_SEM(r,:)=std(GLOBAL_CHI(r,:))/sqrt(n_subs);
     C_PCC_SEM(r,:)=std(GLOBAL_PCC(r,:))/sqrt(n_subs);
+    C_SPEED_SEM(r,:)=std(MEAN_SPEED(r,:))/sqrt(n_subs);
     C_CENTROPY_SEM(r,:)=std(CENTROPY(r,:))/sqrt(n_subs);
     C_TAU_SEM(r,:)=std(TAU(r,:))/sqrt(n_subs);
    
@@ -122,7 +124,13 @@ for run=1:Rmax+2  % 6 combinations
         a=squeeze(GLOBAL_CHI(c1,:)); 
         b=squeeze(GLOBAL_CHI(c2,:)); 
         stats=permutation_htest_np_paired([a,b],[ones(1,numel(a)) 2*ones(1,numel(b))],1000,0.05,'ttest');
-        CHI_pval=min(stats.pvals);            
+        CHI_pval=min(stats.pvals);     
+
+        % Compare TYP SPEED
+        a=squeeze(MEAN_SPEED(c1,:));  
+        b=squeeze(MEAN_SPEED(c2,:)); 
+        stats=permutation_htest_np_paired([a,b],[ones(1,numel(a)) 2*ones(1,numel(b))],1000,0.05,'ttest');
+        MEAN_SPEED_pval=min(stats.pvals);            
 
         % Compare PCC
         a=squeeze(GLOBAL_PCC(c1,:)); 
@@ -142,7 +150,7 @@ for run=1:Rmax+2  % 6 combinations
         stats=permutation_htest_np_paired([a,b],[ones(1,numel(a)) 2*ones(1,numel(b))],1000,0.05,'ttest');
         TAU_pval=min(stats.pvals);            
 
-    save([PAR '_IPC_MODE_GStats_R' num2str(c1) 'R' num2str(c2)], 'P_pval','LT_pval','META_pval', 'SYNC_pval', 'CHI_pval', 'PCC_pval','CENTROPY_pval','TAU_pval',...
-       'CENTROPY','MEAN_META','MEAN_SYNC','GLOBAL_CHI','GLOBAL_PCC', ...
-       'C_P_SEM','C_LT_SEM','C_META', 'C_META_SEM', 'C_SYNC', 'C_SYNC_SEM','C_CHI','C_CHI_SEM','C_TAU','C_TAU_SEM','C_PCC','C_PCC_SEM','C_CENTROPY','C_CENTROPY_SEM') 
+    save([PAR '_IPC_MODE_GStats_R' num2str(c1) 'R' num2str(c2)], 'P_pval','LT_pval','META_pval', 'SYNC_pval', 'CHI_pval','MEAN_SPEED_pval', 'PCC_pval','CENTROPY_pval','TAU_pval',...
+       'CENTROPY','MEAN_META','MEAN_SYNC','GLOBAL_CHI','MEAN_SPEED','GLOBAL_PCC', ...
+       'C_P_SEM','C_LT_SEM','C_META', 'C_META_SEM', 'C_SYNC', 'C_SYNC_SEM','C_CHI','C_CHI_SEM','C_TAU','C_TAU_SEM','C_PCC','C_PCC_SEM','C_CENTROPY','C_CENTROPY_SEM','C_SPEED','C_SPEED_SEM') 
 end    

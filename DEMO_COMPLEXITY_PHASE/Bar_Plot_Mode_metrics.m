@@ -15,7 +15,7 @@ Smax=5;
 Cmax=Smax-1;
 n_rows=5;
 n_cols=2;
-global PAR
+PAR='AAL116';
 
 Rmax=4;
 num_subjects=20;
@@ -25,7 +25,7 @@ box_style='traditional';
 
 run_colors=[1 0 0; 0 1 0; 0 1 1 ; 1 0 1 ; 1 1 0; 0 1 1]/1.1;
 
-load([PAR '_IPC_MODE_Stats_R1R2'],'META', 'SYNC');
+load([PAR '_IPC_MODE_Stats_R1R2'],'META', 'SYNC','MEAN_SPEED');
 
 for mode=1:Smax
     
@@ -79,6 +79,8 @@ for r=1:Rmax+2
     Probs_SYNC(a,b)=SYNC_pval(Cmax,mode);
     Probs_SYNC(b,a)=SYNC_pval(Cmax,mode);
 
+    Probs_MEAN_SPEED(a,b)=MEAN_SPEED_pval(Cmax,mode);
+    Probs_MEAN_SPEED(b,a)=MEAN_SPEED_pval(Cmax,mode);
 end
 
 for n=1:Rmax
@@ -88,6 +90,7 @@ for n=1:Rmax
             Probs_LT(n,p)= NaN;
             Probs_META(n,p)= NaN;
             Probs_SYNC(n,p)= NaN;
+            Probs_MEAN_SPEED(n,p)= NaN;
         end
     end
 end
@@ -103,6 +106,7 @@ for r=1:Rmax
     SEM_LT(r,:)=std(LT(r,:,mode))/sqrt(num_subjects);
     SEM_META(r,:)=std(META(r,:,mode))/sqrt(num_subjects);
     SEM_SYNC(r,:)=std(SYNC(r,:,mode))/sqrt(num_subjects);
+    SEM_MEAN_SPEED(r,:,mode)=std(MEAN_SPEED(r,:,mode))/sqrt(num_subjects);
 end
 
 hAx=subplot(n_rows,n_cols,C_idx);
@@ -244,11 +248,39 @@ hAx.Position(1)=start;
 hAx.YRuler.TickLabelFormat = '%.2f';
 C_idx=C_idx+1;
 
+hAx=subplot(n_rows,n_cols,C_idx);
+superbar([mean(MEAN_SPEED(1,:,mode)) mean(MEAN_SPEED(2,:,mode)) mean(MEAN_SPEED(3,:,mode)) mean(MEAN_SPEED(4,:,mode))],'E',[SEM_MEAN_SPEED(1) SEM_MEAN_SPEED(2) SEM_MEAN_SPEED(3) SEM_MEAN_SPEED(4)],...
+    'P', Probs_MEAN_SPEED,'BarFaceColor',run_colors,'PStarColor',[1 0 0],'PStarFontSize',20,...
+    'PStarShowNS',false,'PStarThreshold',[0.01 0.001 0.0001])
+hold on
+xticks([1 2 3 4])
+xticklabels(scan_labels)
+ylabel(['SPEED \psi_' num2str(mode)])
+bottom=hAx.Position(2);
+ax=gca;
+ax.YRuler.Exponent = -1;
+ax.YRuler.TickLabelFormat = '%.2f';
+C_idx=C_idx+1;
+
+hAx=subplot(n_rows,n_cols,C_idx);
+
+HistData=[MEAN_SPEED(1,:,mode); MEAN_SPEED(2,:,mode); MEAN_SPEED(3,:,mode); MEAN_SPEED(4,:,mode)];        
+bh=boxplot(HistData','Notch','on','Labels',scan_labels,'ColorGroup',[1 2 3 4],'PlotStyle',box_style,'Widths',0.3);
+box on
+set(bh,'LineWidth',1)
+
+hAx.Position(4)=height;
+hAx.Position(3)=width;
+hAx.Position(2)=bottom;
+hAx.Position(1)=start;
+ax=gca;
+ax.YRuler.Exponent = -1;
+ax.YRuler.TickLabelFormat = '%.2f';
 
 set(findall(gcf,'-property','FontSize'),'FontSize',14)
 set(findall(gcf,'-property','FontWeight'),'FontWeight','bold')
 
 set(gcf, 'units','normalized','outerposition',[0 0 .25 .5]);
-saveas(gcf,['Figures/Figure3_' PAR '_MODE_' num2str(mode)],'jpeg')
+saveas(gcf,['Figures/Boxplots_' PAR '_MODE_' num2str(mode)],'jpeg')
 end
 

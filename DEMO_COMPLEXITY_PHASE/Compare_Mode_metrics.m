@@ -18,7 +18,7 @@ function Compare_Mode_metrics
 % Reorder the MODES in runs 1 and 3 to match the order in 2 and 4
 %
 % Run 1: 1 2 3 5 4
-% Run 2: 1 3 2 4 5
+% Run 2: 1 2 3 4 5
 % Run 3: 1 3 2 5 4
 % Run 4: 1 2 3 4 5
 %
@@ -26,7 +26,7 @@ function Compare_Mode_metrics
 % size of the dPL matrices
 %%%%%%%
 
-global PAR
+PAR ='AAL116';
 Smax=5;
 Cmax=Smax-1;
 Rmax=4; % number of runs
@@ -36,16 +36,17 @@ for run=1:Rmax
     LT(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_for_stats'], 'LT'));    
     META(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_KOP_ALL_RUN' num2str(run)],'RSN_META_ALL'));
     SYNC(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_KOP_ALL_RUN' num2str(run)],'RSN_SYNC_ALL'));
- 
+    MEAN_SPEED(run,:,:,:)=struct2array(load([PAR '_IPC_STATES_RUN' num2str(run)],'MEAN_SPEED'));
 end
 
 P5(:,:,:)=squeeze(P(:,:,Cmax,1:Smax));
 LT5(:,:,:)=squeeze(LT(:,:,Cmax,1:Smax));
+MEAN_SPEED5(:,:,:)=squeeze(MEAN_SPEED(:,:,Cmax,:));
 META5(:,:,:)=squeeze(META(:,:,:,Cmax));
 SYNC5(:,:,:)=squeeze(SYNC(:,:,:,Cmax));
 
 %
-% AAL116 - Now flip the rows for runs 2 and 4
+% AAL116 - Now flip the rows for runs 1 and 2
 
 P5(1,:,[4 5])=P5(1,:,[5 4]);
 P5(3,:,[2 3])=P5(3,:,[3 2]);
@@ -54,6 +55,11 @@ P5(3,:,[4 5])=P5(3,:,[5 4]);
 LT5(1,:,[4 5])=LT5(1,:,[5 4]);
 LT5(3,:,[2 3])=LT5(3,:,[3 2]);
 LT5(3,:,[4 5])=LT5(3,:,[5 4]);
+
+MEAN_SPEED5(1,:,[4 5])=MEAN_SPEED5(1,:,[5 4]);
+MEAN_SPEED5(3,:,[2 3])=MEAN_SPEED5(3,:,[3 2]);
+MEAN_SPEED5(3,:,[4 5])=MEAN_SPEED5(3,:,[5 4]);
+
 
 META5(1,:,[4 5])=META5(1,:,[5 4]);
 META5(3,:,[2 3])=META5(3,:,[3 2]);
@@ -65,6 +71,7 @@ SYNC5(3,:,[4 5])=SYNC5(3,:,[5 4]);
 
 P=P5;
 LT=LT5;
+MEAN_SPEED=MEAN_SPEED5;
 META=META5;
 SYNC=SYNC5;
 
@@ -123,7 +130,13 @@ for r=1:Rmax+2  % 6 combinations
         stats=permutation_htest_np_paired([a,b],[ones(1,numel(a)) 2*ones(1,numel(b))],1000,0.05,'ttest');
         SYNC_pval(Cmax,s)=min(stats.pvals);            
 
+        % Compare TYP SPEED
+        a=squeeze(MEAN_SPEED(c1,:,s));  
+        b=squeeze(MEAN_SPEED(c2,:,s)); 
+        stats=permutation_htest_np_paired([a,b],[ones(1,numel(a)) 2*ones(1,numel(b))],1000,0.05,'ttest');
+        MEAN_SPEED_pval(Cmax,s)=min(stats.pvals);            
+
     end
-    save([PAR '_IPC_MODE_Stats_R' num2str(c1) 'R' num2str(c2)], 'P_pval', 'LT_pval', 'META_pval', 'SYNC_pval',...
-        'P','LT','META','SYNC')
+    save([PAR '_IPC_MODE_Stats_R' num2str(c1) 'R' num2str(c2)], 'P_pval', 'LT_pval', 'META_pval', 'SYNC_pval','MEAN_SPEED_pval',...
+        'P','LT','META','SYNC','MEAN_SPEED')
 end    
