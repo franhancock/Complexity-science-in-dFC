@@ -17,7 +17,7 @@ function Bar_plot_metrics
 %
 %
 
-n_rows=6;
+n_rows=7;
 n_cols=2;
 Rmax=4;
 
@@ -29,8 +29,7 @@ run_colors=[1 0 0; 0 1 0; 0 1 1 ; 1 0 1 ; 1 1 0; 0 1 1]/1.1;
 % just to check the vectors affected
 % Centroids from both scans were the 'same' so use LR D1
 %
-
-global PAR
+PAR='AAL116';
 
 figure;
 C_idx=1;
@@ -84,6 +83,9 @@ for r=1:Rmax+2
     Probs_TAU(a,b)=TAU_pval;
     Probs_TAU(b,a)=TAU_pval;
 
+    Probs_MEAN_SPEED(a,b)=MEAN_SPEED_pval;
+    Probs_MEAN_SPEED(b,a)=MEAN_SPEED_pval;
+
 end
 
 for n=1:Rmax
@@ -92,6 +94,7 @@ for n=1:Rmax
             Probs_META(n,p)= NaN;
             Probs_SYNC(n,p)= NaN;
             Probs_CHI(n,p)= NaN;
+            Probs_MEAN_SPEED(n,p)= NaN;
             Probs_PCC(n,p)=NaN;
             Probs_CENTROPY(n,p)=NaN;
             Probs_TAU(n,p)=NaN;
@@ -277,6 +280,35 @@ hAx.Position(2)=bottom;
 hAx.YRuler.TickLabelFormat = '%.2f';
 C_idx=C_idx+1;
 
+hAx=subplot(n_rows,n_cols,C_idx);
+
+superbar([C_SPEED(1,:) C_SPEED(2,:) C_SPEED(3,:) C_SPEED(4,:)],'E',[C_SPEED_SEM(1) C_SPEED_SEM(2) C_SPEED_SEM(3) C_SPEED_SEM(4)],...
+    'P', Probs_MEAN_SPEED,'BarFaceColor',run_colors,'PStarColor',[1 0 0],'PStarFontSize',32,...
+    'PStarShowNS',false)
+hold on
+xticks([1 2 3 4])
+xticklabels(scan_labels)
+ylabel('SPEED')
+hAx.YRuler.Exponent = -2;
+hAx.YRuler.TickLabelFormat = '%.2f';
+bottom=hAx.Position(2);
+C_idx=C_idx+1;
+
+hAx=subplot(n_rows,n_cols,C_idx);
+
+HistData=[MEAN_SPEED(1,:); MEAN_SPEED(2,:); MEAN_SPEED(3,:); MEAN_SPEED(4,:)];        
+bh=boxplot(HistData','Notch','on','Labels',scan_labels,'ColorGroup',[1 2 3 4],'PlotStyle',box_style,'Widths',0.3);
+box on
+set(bh,'LineWidth',1)
+
+hAx.Position(4)=height;
+hAx.Position(3)=width;
+hAx.Position(1)=start;
+hAx.Position(2)=bottom;
+hAx.YRuler.Exponent = -2;
+hAx.YRuler.TickLabelFormat = '%.2f';
+
+
 set(findall(gcf,'-property','FontWeight'),'FontWeight','bold')
 set(findall(gcf,'-property','FontSize'),'FontSize',18)
 sgtitle([PAR newline ],'FontSize',24, 'FontWeight','bold')
@@ -284,5 +316,5 @@ sgtitle([PAR newline ],'FontSize',24, 'FontWeight','bold')
 % set(gcf, 'units','normalized','outerposition',[0 0 .4 .75]);
  set(gcf, 'units','normalized','outerposition',[0 0 .3 1]);
 
-exportgraphics(gcf,['Figures/Figure2_' PAR '.tiff'])
+exportgraphics(gcf,['Figures/Global_boxplots_' PAR '.jpeg'])
 

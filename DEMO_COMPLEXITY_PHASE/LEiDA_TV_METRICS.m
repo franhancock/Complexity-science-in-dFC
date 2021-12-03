@@ -9,7 +9,6 @@ function LEiDA_TV_METRICS
 % Report the summary metrics OCC,META,CHI, PCC,
 %  Coalition Entropy (Hc), PHI-IDR
 %
-
 % folowing Wilde & Shanahan 2012
 % Fran Hancock
 % May 2021
@@ -61,9 +60,12 @@ clear Kmeans LEiDA_EigenVectors
 % Now get the summary metrics for OCC and DWELL
 %
 load([MET_FOLDER 'LEiDA_for_stats'])
+load(['AAL116_IPC_STATES_RUN' num2str(run)]);
+load(['AAL116_IPC_RW_ALL_R' num2str(run)]);
 
 P5=squeeze(P(Subject,Cmax,:));
 LT5=squeeze(LT(Subject,Cmax,:));
+MEAN_SPEED5=squeeze(MEAN_SPEED(Subject,Cmax,:));
 META5=squeeze(RSN_META_ALL(Subject,:,Cmax));
 SYNC5=squeeze(RSN_SYNC_ALL(Subject,:,Cmax));
 %
@@ -77,6 +79,7 @@ switch run
     case 1
         P5([4 5])=P5([5 4]);
         LT5([4 5])=LT5([5 4]);
+        MEAN_SPEED([4 5])=MEAN_SPEED([5 4]);
         META5([4 5])=META5([5 4]);
         SYNC5([4 5])=SYNC5([5 4]);
     case 3
@@ -86,7 +89,10 @@ switch run
         
         LT5([2 3])=LT5([3 2]);
         LT5([4 5])=LT5([5 4]);
-        
+
+        MEAN_SPEED([2 3])=MEAN_SPEED([3 2]);
+        MEAN_SPEED([4 5])=MEAN_SPEED([5 4]);
+
         META5([2 3])=META5([3 2]);
         META5([4 5])=META5([5 4]);
         
@@ -96,6 +102,7 @@ end
 OCC=P5;
 DWELL=LT5;
 META=META5;
+MEAN_SPEED=MEAN_SPEED5;
 SYNC=SYNC5;
 CE=GLOBAL_CE;
 CHI=GLOBAL_CHI;
@@ -356,8 +363,26 @@ end
 xmax=max(DWELL);
 set(gca,'YTickLabel',flip(RSN_names(1:Smax+1)),'Fontsize',10)
 
-
 subplot(n_rows,n_cols, (3+run)*(n_cols)+3)
+
+% S_BAR= [squeeze(MEAN_SPEED(run,Subject,:))' GLOBAL_MEAN_SPEED_LR(:,Subject)];
+S_BAR= [MEAN_SPEED' GLOBAL_MEAN_SPEED(:,Subject)'];
+
+S_BAR=flip(S_BAR);
+
+b=barh(S_BAR,'FaceColor','flat');
+for mode=1:Smax+1
+    b.CData(mode,:)=cmap(mode,:);
+end
+if run==1
+    title('SPEED');
+end
+xmax=max(MEAN_SPEED);
+
+xlim([0 xmax]);
+set(gca,'YTickLabel',flip(RSN_names(1:Smax+1)),'Fontsize',10)
+
+subplot(n_rows,n_cols, (3+run)*(n_cols)+4)
 S_BAR= [ SYNC SYNC(1)];
 S_BAR=flip(S_BAR);
 
@@ -372,7 +397,7 @@ xmax=max(SYNC);
 xlim([0 xmax]);
 set(gca,'YTickLabel',flip(RSN_names(1:Smax+1)),'Fontsize',10)
 
-subplot(n_rows,n_cols, (3+run)*(n_cols)+4) 
+subplot(n_rows,n_cols, (3+run)*(n_cols)+5) 
 
 S_BAR= [META mean(META,2)];
 S_BAR=flip(S_BAR);

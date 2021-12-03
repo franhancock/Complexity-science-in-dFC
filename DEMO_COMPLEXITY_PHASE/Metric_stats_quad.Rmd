@@ -1,0 +1,121 @@
+---
+title: "Linear Mixed Model for dFC Metrics - Quadratic Term for SYNC"
+author: 
+- name: "Fran Hancock"
+  affiliation: Department of Neuroimaging, Institute of Psychiatry, Psychology and Neuroscience, King's College London, London, UK 
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+fontsize: 14pt
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Relationships between the metrics
+### Correlations
+
+We investigated the relationships between all 9 metrics using Spearman correlation. Figure x shows the montonic relationships for RUN 1.
+  
+```{r,corr_plot,echo=FALSE,message=FALSE}
+# R code
+library(corrplot)
+library(lmerTest)
+library(easystats)
+library(performance)
+
+library(readxl)
+Regtable1 <- read_excel("Regtable1.xlsx")
+Regtable2 <- read_excel("Regtable2.xlsx")
+Regtable3 <- read_excel("Regtable3.xlsx")
+Regtable4 <- read_excel("Regtable4.xlsx")
+
+M=cor(Regtable1, method=c('spearman'))
+testRes=cor.mtest(Regtable1, conf.level = 0.95)
+#tiff('Figures/Corr_run1')
+corrplot(M, p.mat =testRes$p, sig.level=0.05,order='hclust',addrect=2,tl.col ='black', tl.srt = 45,addCoef.col = 'white')
+#dev.off()
+```
+
+### Linear Mixed effects modelling
+
+As the majority of metrics were statically significant, we performed a linear  mixed effect model with quadratic terns for fixed effects of 8 standardized predictors and random effects of RUN for Integrated Information. We obtained the following model:
+  
+```{r,lme_model,echo=FALSE, message=FALSE,include=FALSE}
+
+Regtb <- read_excel('Regtable_STD.xlsx')
+# generate the model
+fm <-lmer(PID ~ OCC + DUR + META + SYNC +I(SYNC^2) +SPEED + PCC + CHI + CENTROPY + (1|RUN), data=Regtb)
+```
+```{r,lme_first,echo=FALSE, message=FALSE}
+summary(fm)
+
+# produce the ANOVA tables for fixed effects
+aov <-anova(fm)
+#  random effects via liklihood ratios
+ran<-ranova(fm)
+
+```
+  
+Restricting the model to the parameters with statistical significance we obtained the following model:
+  
+```{r,lme_final,echo=FALSE, message=FALSE}  
+final_model<-lmer(PID ~ I(SYNC^2) + CENTROPY + CHI +(1|RUN), data=Regtb)
+# Display final mdoel
+
+final_model
+```
+  
+  
+#### Model Performance
+  
+We assessed the model performance
+  
+```{r,lme_performance,echo=FALSE, message=FALSE}
+model_performance(final_model)
+
+```
+  
+  
+#### Model Data
+  
+And summarize the model data 
+  
+```{r,lme_summary,echo=FALSE, message=FALSE}
+
+r<-report(final_model)
+#summary(as.data.frame(r))
+summary(final_model)
+```
+  
+  
+#### Regression summary
+  
+In summary 
+  
+```{r,lme_report,echo=FALSE, message=FALSE}
+report(final_model)
+writeLines("Satterthwaite's method." )
+
+
+
+#writeLines('\n\nDATA TABLE\n')
+#data_sum
+#sink(file=NULL)
+
+```
+  
+  
+#### Model Quality
+
+We evaluated the quality of the model fit and summarized the results in the following plots:
+  
+```{r,lme_check,echo=FALSE, message=FALSE}
+library(easystats)
+library(performance)
+library(see)
+
+# check the final model
+check_model(final_model,panel=FALSE)
+# dev.copy(tiff,'Figures/LME_CHECK.tiff',width= 960,height=960, units='px', pointsize=12)
+# dev.off()
+```
