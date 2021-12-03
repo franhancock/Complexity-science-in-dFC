@@ -10,7 +10,12 @@ RStudio, Rmarkdown
 It will be enough to download the code folder and set the Matlab path to the folder (Matlab --> Set path --> Add folder with subfolders)
 
 *******INSTRUCTIONS FOR USE: 
-How to run the software on your data
+
+***** DEMO: Parcellated MAT files have been provided for 20 HCPU100 subjects for 4 fMRI runs
+***** SUPPLIED_FILES: RUN1: RUN2: RUN3: RUN4: A number of files that allow you to run the DEMO pipeline without the need for significant RAM and processor requirements
+***** AAL116_Centroids: The centroids for the 5 spatial modes in NIFTI and MAT format
+
+**** How to run the software on your data
 
 In CP_FullPipeLine.m 
 
@@ -18,6 +23,7 @@ point HCP_DATA to your post-processed subject nifti files
 
 point HCP_MAT to where you wish to store your subjects' parcellated .mat files
 
+**** End
 
 CP_FullPipeLine.m will
 
