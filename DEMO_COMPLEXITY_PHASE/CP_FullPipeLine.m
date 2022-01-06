@@ -31,9 +31,8 @@ savepath /Users/HDF/Documents/MATLAB/pathdef.m
 %
 % set up the directories for the HCP nifti and the parcellated data
 %
-global HCP_MAT_DATA HCP_DATA PAR;
-HCP_DATA='~/DATA/COBRA_SCHZ/4197885/';
-HCP_MAT_DATA='COBRA_MAT';
+global HCP_MAT_DATA PAR;
+HCP_MAT_DATA='HCPU100_20_MAT;
 PAR='AAL116';
 
 %%

@@ -70,7 +70,7 @@ LEiDA_RW_states
 DFA_IPC
 
 %% 13:Plot DFA results
-plot_DFA_AAL116_results
+plot_Speed_DFA_AAL116_results
 
 %% 14. Compute and plot random walk for a subject
 compute_random_walk
