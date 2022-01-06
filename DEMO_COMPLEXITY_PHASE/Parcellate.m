@@ -3,7 +3,7 @@ function Parcellate
 %
 % Function to 
 % - Load BOLD data in MNI space
-% - Load the LAUsanne 1000 template
+% - Load the AAL template
 %
 % Origianl code
 % Joana Cabral 
@@ -18,10 +18,10 @@ function Parcellate
 
 global HCP_DATA HCP_MAT_DATA;
 
-Parcellation='lausanne5';
-PAR='LAU';
+Parcellation='AAL116';
+PAR='AAL116';
 
-N_areas=1015;
+N_areas=116;
 Rmax = 4; % number of fMRI runs
           
 for run=1:Rmax
@@ -48,7 +48,7 @@ for run=1:Rmax
                         BOLD_MNI=niftiread([file.folder '/' file.name]);
                         T=size(BOLD_MNI,4);
             
-                        BOLD_LAU=zeros(N_areas,T);
+                        BOLD_AAL=zeros(N_areas,T);
             
                         for n=1:N_areas
             
@@ -58,15 +58,15 @@ for run=1:Rmax
                                 [I1,I2,I3] = ind2sub(sz,ind_voxels(v));
                                 
                                 if ~isnan(BOLD_MNI(I1,I2,I3,1))
-                                        BOLD_LAU(n,:)= BOLD_LAU(n,:) + squeeze(BOLD_MNI(I1,I2,I3,:))';
+                                        BOLD_AAL(n,:)= BOLD_AAL(n,:) + squeeze(BOLD_MNI(I1,I2,I3,:))';
                                
                                 end
                             end
-                            BOLD_LAU(n,:)= BOLD_LAU(n,:)/numel(ind_voxels);
-                            BOLD_LAU(n,:)=BOLD_LAU(n,:)-mean(BOLD_LAU(n,:));
+                            BOLD_AAL(n,:)= BOLD_AAL(n,:)/numel(ind_voxels);
+                            BOLD_AAL(n,:)=BOLD_AAL(n,:)-mean(BOLD_AAL(n,:));
             
                         end
-                        save([save_folder names(s).name],'BOLD_LAU')
+                        save([save_folder names(s).name],'BOLD_AAL')
                         disp(s);
                     end              
             end
@@ -93,7 +93,7 @@ for run=1:Rmax
                         BOLD_MNI=niftiread([file.folder '/' file.name]);
                         T=size(BOLD_MNI,4);
             
-                        BOLD_LAU=zeros(N_areas,T);
+                        BOLD_AAL=zeros(N_areas,T);
             
                         for n=1:N_areas
             
@@ -103,15 +103,15 @@ for run=1:Rmax
                                 [I1,I2,I3] = ind2sub(sz,ind_voxels(v));
                                 
                                 if ~isnan(BOLD_MNI(I1,I2,I3,1))
-                                        BOLD_LAU(n,:)= BOLD_LAU(n,:) + squeeze(BOLD_MNI(I1,I2,I3,:))';
+                                        BOLD_AAL(n,:)= BOLD_AAL(n,:) + squeeze(BOLD_MNI(I1,I2,I3,:))';
                                
                                 end
                             end
-                            BOLD_LAU(n,:)= BOLD_LAU(n,:)/numel(ind_voxels);
-                            BOLD_LAU(n,:)=BOLD_LAU(n,:)-mean(BOLD_LAU(n,:));
+                            BOLD_AAL(n,:)= BOLD_AAL(n,:)/numel(ind_voxels);
+                            BOLD_AAL(n,:)=BOLD_AAL(n,:)-mean(BOLD_AAL(n,:));
             
                         end
-                        save([save_folder names(s).name],'BOLD_LAU')
+                        save([save_folder names(s).name],'BOLD_AAL')
                         disp(s);
                     end              
             end
@@ -137,7 +137,7 @@ for run=1:Rmax
                         BOLD_MNI=niftiread([file.folder '/' file.name]);
                         T=size(BOLD_MNI,4);
             
-                        BOLD_LAU=zeros(N_areas,T);
+                        BOLD_AAL=zeros(N_areas,T);
             
                         for n=1:N_areas
             
@@ -147,15 +147,15 @@ for run=1:Rmax
                                 [I1,I2,I3] = ind2sub(sz,ind_voxels(v));
                                 
                                 if ~isnan(BOLD_MNI(I1,I2,I3,1))
-                                        BOLD_LAU(n,:)= BOLD_LAU(n,:) + squeeze(BOLD_MNI(I1,I2,I3,:))';
+                                        BOLD_AAL(n,:)= BOLD_AAL(n,:) + squeeze(BOLD_MNI(I1,I2,I3,:))';
                                
                                 end
                             end
-                            BOLD_LAU(n,:)= BOLD_LAU(n,:)/numel(ind_voxels);
-                            BOLD_LAU(n,:)=BOLD_LAU(n,:)-mean(BOLD_LAU(n,:));
+                            BOLD_AAL(n,:)= BOLD_AAL(n,:)/numel(ind_voxels);
+                            BOLD_AAL(n,:)=BOLD_AAL(n,:)-mean(BOLD_AAL(n,:));
             
                         end
-                        save([save_folder names(s).name],'BOLD_LAU')
+                        save([save_folder names(s).name],'BOLD_AAL')
                         disp(s);
                     end              
             end
@@ -183,7 +183,7 @@ for run=1:Rmax
                         BOLD_MNI=niftiread([file.folder '/' file.name]);
                         T=size(BOLD_MNI,4);
             
-                        BOLD_LAU=zeros(N_areas,T);
+                        BOLD_AAL=zeros(N_areas,T);
             
                         for n=1:N_areas
             
@@ -193,15 +193,15 @@ for run=1:Rmax
                                 [I1,I2,I3] = ind2sub(sz,ind_voxels(v));
                                 
                                 if ~isnan(BOLD_MNI(I1,I2,I3,1))
-                                        BOLD_LAU(n,:)= BOLD_LAU(n,:) + squeeze(BOLD_MNI(I1,I2,I3,:))';
+                                        BOLD_AAL(n,:)= BOLD_AAL(n,:) + squeeze(BOLD_MNI(I1,I2,I3,:))';
                                
                                 end
                             end
-                            BOLD_LAU(n,:)= BOLD_LAU(n,:)/numel(ind_voxels);
-                            BOLD_LAU(n,:)=BOLD_LAU(n,:)-mean(BOLD_LAU(n,:));
+                            BOLD_AAL(n,:)= BOLD_AAL(n,:)/numel(ind_voxels);
+                            BOLD_AAL(n,:)=BOLD_AAL(n,:)-mean(BOLD_AAL(n,:));
             
                         end
-                        save([save_folder names(s).name],'BOLD_LAU')
+                        save([save_folder names(s).name],'BOLD_AAL')
                         disp(s);
                     end              
             end
