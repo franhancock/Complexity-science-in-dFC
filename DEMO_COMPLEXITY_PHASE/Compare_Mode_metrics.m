@@ -22,8 +22,6 @@ function Compare_Mode_metrics
 % Run 3: 1 3 2 5 4
 % Run 4: 1 2 3 4 5
 %
-% NOTE: We do include Typical Speed calculations for this DEMO due to the
-% size of the dPL matrices
 %%%%%%%
 
 PAR ='AAL116';

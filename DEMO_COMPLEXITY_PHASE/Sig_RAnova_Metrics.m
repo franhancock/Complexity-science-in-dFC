@@ -19,8 +19,6 @@ Smax=5;
 
 metrics={'OCC','DURA','META','SYNC','SPEED'};
 
-Proj_folder='/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/projects/';
-
 PAR='AAL116';
     
 stats=load([PAR '_RANOVA_STATES']);

@@ -44,7 +44,7 @@ PAR='AAL116';
 N_areas=116;
 
     
-for run=3:Rmax
+for run=1:Rmax
 
     save_file=([PAR '_IPC_RW_ALL_R' num2str(run) ]);
     LEiDA_stream_3D=zeros(N_areas,N_areas,Tmax);

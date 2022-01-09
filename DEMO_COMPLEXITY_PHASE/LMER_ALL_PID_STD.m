@@ -31,8 +31,8 @@ PAR='AAL116';
 Cmax=Smax-1;
 
 for run=1:Rmax
-    P(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_FOR_stats'],'P'));
-    LT(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_FOR_stats'],'LT'));
+    P(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_for_stats'],'P'));
+    LT(run,:,:,:)=struct2array(load(['RUN' num2str(run) '/LEiDA_for_stats'],'LT'));
       
 end
 

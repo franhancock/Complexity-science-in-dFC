@@ -14,9 +14,6 @@ function plot_Speed_DFA_AAL116_results
 % Set up the paths to the functions, libraries etc
 %
 %
-addpath('/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/', genpath('/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/functions'), '/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/static_data','/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/libraries');
-savepath /Users/HDF/Documents/MATLAB/pathdef.m
-static_path='/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/static_data/';
 
 n_rows=2;
 n_cols=3;
@@ -27,10 +24,10 @@ AAL116_results=struct2array(load('/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/p
 load AAL116_IPC_MODE_GStats_R1R2 'MEAN_SPEED'
 
 % Set up the variables for scatterhistogram
-scan1(1:99)=1;
-scan2(1:99)=2;
-scan3(1:99)=3;
-scan4(1:99)=4;
+scan1(1:20)=1;
+scan2(1:20)=2;
+scan3(1:20)=3;
+scan4(1:20)=4;
 
 
 figure

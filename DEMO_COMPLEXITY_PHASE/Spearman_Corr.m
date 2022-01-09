@@ -34,7 +34,7 @@ for run=1:Rmax
 
     set(gcf, 'units','normalized','outerposition',[0 0 0.5 1]);
      
-    load(['RUN' num2str(run) '/LEiDA_FOR_stats']);
+    load(['RUN' num2str(run) '/LEiDA_for_stats']);
     load AAL116_IPC_MODE_GStats_R2R3 % load MEAN_xxx
 
     % TAU

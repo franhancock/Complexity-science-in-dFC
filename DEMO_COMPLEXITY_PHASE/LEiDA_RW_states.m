@@ -41,11 +41,8 @@ PAR='AAL116';
 N_areas=116;
 LEiDA_stream_3D=zeros(N_areas,N_areas,Tmax);
 
-Proj_folder='/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/projects/';
-Save_folder = '/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/projects/IPC_AAL116/';
-
 % load(['/Users/HDF/Dropbox/Fran/Academics/PhD/matlab/projects/LEiDA_2021_' PAR '_HCPUN100/LEiDA_Eigenvectors.mat']);
-for run=1:4
+for run=1:Rmax
     	switch run
 	    case 1
 		    MET_FOLDER='RUN1/';
