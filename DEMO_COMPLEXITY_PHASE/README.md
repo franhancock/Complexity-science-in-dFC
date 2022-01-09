@@ -4,6 +4,7 @@ Code to compute, assess, and plot dFC Metrics described in 'Metastability, fract
 *******SYSTEM REQUIREMENTS:
 MATLAB 2021b
 spm12 (please download spm12 from here: https://www.fil.ion.ucl.ac.uk/spm/software/download/spmreg.php and set it under the known Matlab paths with Matlab --> Set path --> Add folder with subfolders).
+RStudio
 
 *******INSTALLATION GUIDE:
 It will be enough to download the code folder and set the Matlab path to the folder (Matlab --> Set path --> Add folder with subfolders)
