@@ -4,6 +4,7 @@ Code to compute, assess, and plot dFC Metrics described in 'Metastability, fract
 *******SYSTEM REQUIREMENTS:
 MATLAB 2021b
 spm12 (please download spm12 from here: https://www.fil.ion.ucl.ac.uk/spm/software/download/spmreg.php and set it under the known Matlab paths with Matlab --> Set path --> Add folder with subfolders).
+RStudio
 
 *******INSTALLATION GUIDE:
 It will be enough to download the code folder and set the Matlab path to the folder (Matlab --> Set path --> Add folder with subfolders)
@@ -70,7 +71,7 @@ LEiDA_RW_states
 DFA_IPC
 
 %% 13:Plot DFA results
-plot_Speed_DFA_AAL116_results
+plot_DFA_AAL116_results
 
 %% 14. Compute and plot random walk for a subject
 compute_random_walk
@@ -83,6 +84,10 @@ Compute_PHI
 %%
 %% 16. Compare the reproducibility of metrics across runs
 Compare_Global_metrics
+
+%%
+%% 13.a
+plot_Speed_DFA_AAL116_results
 
 %% 17. Plot metric reliabilites
  Bar_plot_metrics
