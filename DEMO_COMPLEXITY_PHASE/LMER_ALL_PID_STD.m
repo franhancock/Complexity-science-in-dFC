@@ -82,7 +82,7 @@ SYNC=reshape(ZSYNC',[],1);
 SPEED=reshape(ZSPEED',[],1);
 PCC=reshape(ZPCC',[],1);
 
-data_labels={ 'RUN','CHI', 'OCC','CENTROPY', 'DUR','META','SYNC','SPEED','PCC','PID'};
+data_labels={ 'RUN','CHI', 'OCC','CENTROPY', 'DUR','META','SYNC','SPEED','PCC','PHI'};
 %
 % Set up the regression table
 
@@ -91,7 +91,7 @@ regtable.RUN=RUN;
 regtable.CHI=CHI;
 regtable.OCC=OCC;
 regtable.CENTROPY=CENT;
-regtable.PID=TAU;  
+regtable.PHI=TAU;  
 regtable.DUR=DWELL;
 regtable.META=META;
 regtable.SYNC=SYNC;

@@ -50,7 +50,7 @@ for run=1:Rmax
     OCC(:,:)=P(1:n_subjects,Cmax,1);
     DWELL(:,:)=LT(1:n_subjects,Cmax,1);
 
-    data_labels={ 'SYNC', 'CHI','META', 'OCC', 'DURATION', 'SPEED','PCC','CENTROPY', 'PID'};
+    data_labels={ 'SYNC', 'CHI','META', 'OCC', 'DURATION', 'SPEED','PCC','CENTROPY', 'PHI'};
 
     %
     % Set up the regression table

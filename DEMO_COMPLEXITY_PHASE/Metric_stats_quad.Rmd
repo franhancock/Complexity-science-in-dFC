@@ -1,5 +1,5 @@
 ---
-title: "Linear Mixed Model for dFC Metrics - Quadratic Term for SYNC"
+title: "Linear Mixed Model for dFC Metrics - Quadratic Term for SYNC standardized"
 author: 
 - name: "Fran Hancock"
   affiliation: Department of Neuroimaging, Institute of Psychiatry, Psychology and Neuroscience, King's College London, London, UK 
@@ -44,7 +44,7 @@ As the majority of metrics were statically significant, we performed a linear  m
 
 Regtb <- read_excel('Regtable_STD.xlsx')
 # generate the model
-fm <-lmer(PID ~ OCC + DUR + META + SYNC +I(SYNC^2) +SPEED + PCC + CHI + CENTROPY + (1|RUN), data=Regtb)
+fm <-lmer(PHI ~ OCC + DUR + META + SYNC +I(SYNC^2) +SPEED + PCC + CHI + CENTROPY + (1|RUN), data=Regtb)
 ```
 ```{r,lme_first,echo=FALSE, message=FALSE}
 summary(fm)
@@ -59,7 +59,7 @@ ran<-ranova(fm)
 Restricting the model to the parameters with statistical significance we obtained the following model:
   
 ```{r,lme_final,echo=FALSE, message=FALSE}  
-final_model<-lmer(PID ~ I(SYNC^2) + CENTROPY + CHI +(1|RUN), data=Regtb)
+final_model<-lmer(PHI ~ I(SYNC^2) + CENTROPY + CHI +(1|RUN), data=Regtb)
 # Display final mdoel
 
 final_model
