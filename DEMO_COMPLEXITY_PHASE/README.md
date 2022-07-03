@@ -1,4 +1,4 @@
-# Complexity-science-in-dFC
+## Complexity-science-in-dFC
 Code to compute, assess, and plot dFC Metrics described in 'Metastability, fractal scaling, and synergistic information processing: what phase relationships reveal about intrinsic fMRI resting-state brain activity '
 
 *******SYSTEM REQUIREMENTS:
@@ -21,101 +21,94 @@ point HCP_MAT to where you wish to store your subjects' parcellated .mat files
 
 CP_FullPipeLine.m will
 
-%%
-%% BASIC LEiDA ANALYSIS
-%%
-%% 1 parcellate the data (parcellated data for 20 subjects in 4 runs provided)
-% Parcellate 
 
-%% 2 compute the leading eigenvectors
-LEiDA_data
+**BASIC LEiDA ANALYSIS**
 
-%% 3. Cluster the eigenvectors
-LEiDA_cluster
+1 parcellate the data (parcellated data for 20 subjects in 4 runs provided)
+_Parcellate_ 
 
-%% 4. Compute duration and occurrence
-LEiDA_for_stats
+2 compute the leading eigenvectors
+_LEiDA_data_
 
-%%
-%% REPRESENT SPATIAL MODES IN 10mm voxel space
-%%
-%% 5. Get the LEiDA centroids in 10mm voxel space (we use this code to represent the AAL116 centroids in 10mm voxel space) Centroids are provided
-  
- % get_centroids_LEiDA
+3. Cluster the eigenvectors
+_LEiDA_cluster_
 
-%% 6. Make fig 1 (This requires a LOT of computational resources for the graphical representation. We supply fig1 for this dataset for reference)
-make_fig1
+4. Compute duration and occurrence
+_LEiDA_for_stats_
 
-%%
-%% EVALUATE RELIABILITY OF MODES
-%%
-%% 7. Compute ICC for 5 modes
-LEiDA_reliability
+**REPRESENT SPATIAL MODES IN 10mm voxel space**
 
-%%
-%% COMPUTE THE METRICS
-%%
-%% 8. Compute phase synchrony metrics
- Phase_sync_metrics
+5. Get the LEiDA centroids in 10mm voxel space (we use this code to represent the AAL116 centroids in 10mm voxel space) Centroids are provided
+_get_centroids_LEiDA_
 
-%% 9. Compute and save IPC FC matrices for dFC walk analysis
-Compute_IPC
+6. Make fig 1 (This requires a **LOT** of computational resources for the graphical representation. We supply fig1 for this dataset for reference)
+_make_fig1_
 
-%% 10. Calcuate the global reconfiguration speeed
-LEiDA_RW_GLOBAL
 
-%% 11. Calculate mode reconfiguration speed
-LEiDA_RW_states
+**EVALUATE RELIABILITY OF MODES**
 
-%% 12. Calculate DFA
-DFA_IPC
+7. Compute ICC for 5 modes
+_LEiDA_reliability_
 
-%% 13:Plot DFA results
-plot_DFA_AAL116_results
+**COMPUTE THE METRICS**
 
-%% 14. Compute and plot random walk for a subject
-compute_random_walk
+8. Compute phase synchrony metrics
+_Phase_sync_metrics_
 
-%% 15. Compute Integrated Information (Request PHhiID code from Pedro Mediano)
-Compute_PHI
+9. Compute and save IPC FC matrices for dFC walk analysis
+_Compute_IPC_
 
-%%
-%% EVALUATE RELIABILTIY OF METRICS
-%%
-%% 16. Compare the reproducibility of metrics across runs
-Compare_Global_metrics
+10. Calcuate the global reconfiguration speeed
+_LEiDA_RW_GLOBAL_
 
-%%
-%% 13.a
-plot_Speed_DFA_AAL116_results
+11. Calculate mode reconfiguration speed
+_LEiDA_RW_states_
 
-%% 17. Plot metric reliabilites
- Bar_plot_metrics
+12. Calculate DFA
+_DFA_IPC_
 
- %% 18. Compare the mode-specific metrics (Permutation testing)
- Compare_Mode_metrics
+13. Plot DFA results
+_plot_DFA_AAL116_results_
 
-%% 19. Run repeared measures ANOVA on mode metrics acros 4 runs (ANOVA testing)
-ANOVA_RM_Metrics
+14. Compute and plot random walk for a subject
+_compute_random_walk_
 
-%% 20. Extract significant differences (Output goes to screen and is also saved in AAL116_SIG_STATES_RM)
-Sig_RAnova_Metrics
+15. Compute Integrated Information (Request PHhiID code from Pedro Mediano)
+_Compute_PHI_
 
-%% 21. Plot mode-specific metric reliabilities
-Bar_plot_Mode_metrics
+**EVALUATE RELIABILTIY OF METRICS**
 
-%%
-%% Investigate relationships between the metrics
-%%
-%% 22. Spearman correlation between the metrics
-Spearman_Corr
+16. Compare the reproducibility of metrics across runs
+_Compare_Global_metrics_
 
-%% 23. Perform Linear Mixed Effect Regression (this code prepares the Regression table for processing in R)
- LMER_ALL_PID_STD
+13.a
+_plot_Speed_DFA_AAL116_results_
 
-%%
-%% Plot time-varying metrics for any subject
-%%
-%% 24. Sample time-varying metrics single subject
-LEiDA_TV_METRICS
+17. Plot metric reliabilites
+_Bar_plot_metrics_
+
+ 18. Compare the mode-specific metrics (Permutation testing)
+ _Compare_Mode_metrics_
+
+19. Run repeared measures ANOVA on mode metrics acros 4 runs (ANOVA testing)
+_ANOVA_RM_Metrics_
+
+20. Extract significant differences (Output goes to screen and is also saved in AAL116_SIG_STATES_RM)
+_Sig_RAnova_Metrics_
+
+21. Plot mode-specific metric reliabilities
+_Bar_plot_Mode_metrics_
+
+**Investigate relationships between the metrics**
+
+22. Spearman correlation between the metrics
+_Spearman_Corr_
+
+23. Perform Linear Mixed Effect Regression (this code prepares the Regression table for processing in R)
+_LMER_ALL_PID_STD_
+
+**Plot time-varying metrics for any subject**
+
+24. Sample time-varying metrics single subject
+_LEiDA_TV_METRICS_
   
