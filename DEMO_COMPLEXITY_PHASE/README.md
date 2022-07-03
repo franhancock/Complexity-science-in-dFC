@@ -24,10 +24,10 @@ CP_FullPipeLine.m will
 
 **BASIC LEiDA ANALYSIS**
 
-1 parcellate the data (parcellated data for 20 subjects in 4 runs provided)
+1. Parcellate the data (parcellated data for 20 subjects in 4 runs provided)
 _Parcellate_ 
 
-2 compute the leading eigenvectors
+2. Compute the leading eigenvectors
 _LEiDA_data_
 
 3. Cluster the eigenvectors
